@@ -46,5 +46,7 @@ public class CourseServiceImpl implements CourseService{
         Course course = courseRepository.findById(courseId)
                 .orElseThrow(()->new ResourceNotFoundException("Course","CourseId",courseId));
         courseRepository.delete(course);
+        System.out.println("Hello");
     }
+
 }
