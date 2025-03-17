@@ -1,6 +1,8 @@
 package com.First.FirstStep.controller;
 
 import com.First.FirstStep.Model.Files;
+import com.First.FirstStep.payload.FileDTO;
+import com.First.FirstStep.payload.FileResponse;
 import com.First.FirstStep.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,9 +22,9 @@ public class FileController {
     private FileService fileService;
 
     @GetMapping("/files")
-    public ResponseEntity<List<Files>> getAllFiles(){
-        List<Files> getFiles = fileService.getAllFiles();
-        return new ResponseEntity<>(getFiles,HttpStatus.OK);
+    public ResponseEntity<FileResponse> getAllFiles(){
+        FileResponse getFiles = fileService.getAllFiles();
+        return new ResponseEntity<FileResponse>(getFiles,HttpStatus.OK);
     }
 
     @GetMapping("/{courseId}/files")
@@ -38,8 +40,8 @@ public class FileController {
     }
 
     @PostMapping("/files/{courseId}")
-    public ResponseEntity<Files> createFiles(@RequestParam("files") MultipartFile file,@PathVariable Long courseId) throws IOException {
-        Files createdFile = fileService.createFile(file,courseId);
+    public ResponseEntity<FileDTO> createFiles(@RequestParam("files") MultipartFile file, @PathVariable Long courseId) throws IOException {
+        FileDTO createdFile = fileService.createFile(file,courseId);
         return new ResponseEntity<>(createdFile, HttpStatus.CREATED);
     }
 

@@ -8,7 +8,7 @@ public enum FileType {
         if (mimeType.contains("pdf")) return PDF;
         if (mimeType.contains("image")||mimeType.contains("png")) return IMAGE;
         if (mimeType.contains("msword") || mimeType.contains("wordprocessingml")) return DOC;
-        if (mimeType.contains("presentation") || mimeType.contains("ppt")) return PPT;
+        if (mimeType.contains("presentation") || mimeType.contains("ppt") || mimeType.contains("pptx")) return PPT;
         if (mimeType.contains("video")) return VIDEO;
         return OTHER;
     }

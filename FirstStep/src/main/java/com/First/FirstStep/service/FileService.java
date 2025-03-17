@@ -1,15 +1,17 @@
 package com.First.FirstStep.service;
 
 import com.First.FirstStep.Model.Files;
+import com.First.FirstStep.payload.FileDTO;
+import com.First.FirstStep.payload.FileResponse;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.List;
 
 public interface FileService {
-    Files createFile(MultipartFile file, Long courseId) throws IOException;
+    FileDTO createFile(MultipartFile file, Long courseId) throws IOException;
 
-    List<Files> getAllFiles();
+    FileResponse getAllFiles();
 
     List<Files> getFilesbyCourse(Long courseId);
 
