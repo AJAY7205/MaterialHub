@@ -13,7 +13,9 @@ public interface FileService {
 
     FileResponse getAllFiles();
 
-    List<Files> getFilesbyCourse(Long courseId);
+
+
+    FileResponse getFilesByCourse(String courseName);
 
     List<Files> getFilesByKeyword(String keyword);
 }

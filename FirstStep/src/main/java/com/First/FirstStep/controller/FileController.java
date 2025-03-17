@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -27,9 +26,9 @@ public class FileController {
         return new ResponseEntity<FileResponse>(getFiles,HttpStatus.OK);
     }
 
-    @GetMapping("/{courseId}/files")
-    public ResponseEntity<List<Files>> getFilesByCourse(@PathVariable Long courseId){
-        List<Files> files = fileService.getFilesbyCourse(courseId);
+    @GetMapping("/{courseName}/files")
+    public ResponseEntity<FileResponse> getFilesByCourse(@PathVariable String courseName){
+        FileResponse files = fileService.getFilesByCourse(courseName);
         return new ResponseEntity<>(files,HttpStatus.OK);
     }
 

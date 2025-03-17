@@ -97,16 +97,29 @@ public class FileServiceImpl implements FileService{
 
 
     @Override
-    public List<Files> getFilesbyCourse(Long courseId) {
-        Course course = courseRepository.findById(courseId)
-                .orElseThrow(()-> new ResourceNotFoundException("Course","CourseId",courseId));
+    public FileResponse getFilesByCourse(String courseName) {
+        Course course = (Course) courseRepository.findByCourseNameLikeIgnoreCase('%' + courseName + '%')
+                .orElseThrow(() -> new ResourceNotFoundException("Course", "Course Name", courseName));
 
         List<Files> files = fileRepository.findByCourses(course);
-        if(files.isEmpty()){
+        if (files.isEmpty()) {
             throw new APIException("No files in this Course");
         }
-        return files;
+
+        List<FileDTO> fileDTOS = files.stream().map(file -> {
+            FileDTO fileDTO = modelMapper.map(file, FileDTO.class);
+
+            // ✅ Ensure courseId is properly assigned
+            if (file.getCourses() != null) {
+                fileDTO.setCourseId(file.getCourses().getCourseId());
+            }
+            return fileDTO;
+        }).toList();
+        FileResponse fileResponse = new FileResponse();
+        fileResponse.setContent(fileDTOS);
+        return fileResponse;
     }
+
 
     @Override
     public List<Files> getFilesByKeyword(String keyword) {
